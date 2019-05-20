@@ -55,7 +55,7 @@ router.get('/test', (req,res) =>
         bcrypt.compare(password,user.password).then(isMatch=> {
           if(isMatch)
           {
-            const payload ={id:user.id, name:user.name, email:user.email};
+            const payload ={id:user.id, name:user.name};
             // Sign Token
             jwt.sign(
               payload,
@@ -65,8 +65,7 @@ router.get('/test', (req,res) =>
                 res.json({
                 success: true,
                 token: 'Bearer ' + token,
-                name: user.name,
-                email: user.email
+                name: user.name
                 });
               }
             ); 
