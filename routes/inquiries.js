@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 router.get('/test', (req,res) =>
  res.json({msg:"this is a test"}));
-router.post('/inquiry', (req, res) => {
+router.post('/inquiries', (req, res) => {
 
     
     const newInquiry = new Inquiry({
@@ -21,13 +21,18 @@ router.post('/inquiry', (req, res) => {
         .then(inq => res.json(inq))
         .catch(err => console.log(err));
 });
-router.get('/inquiry', (req, res) => {
- const docs = new Inquiry();
-    Inquiry.find()
-            .then(docs => res.json(docs))
-            .catch(err => console.log(err));
-    console.log(docs);
-
+router.get('/inquiries',(req, res) => {
+   
+ //const docs = new Inquiry();
+ //Inquiry.find()
+ //       .then(docs => docs.forEach(doc => console.log("Name: " + doc.name)))
+ //       .catch(err => console.log(err));
+ Inquiry
+        .find()
+        .then(inq => res.json(inq))
+        .catch(err => console.log(err));
+           
+//console.log(docs);
 });
             
 module.exports = router;

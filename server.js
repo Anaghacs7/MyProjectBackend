@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const users = require('./routes/users');
-const inquiry = require('./routes/inquiry');
+const inquiries = require('./routes/inquiries');
+const products = require('./routes/products');
 const cors = require('cors')
 const passport = require('passport');
 const app = express();
@@ -29,31 +30,10 @@ mongoose
 app.get('/', (req,res) => res.json({msg:"hello my name is"}));
 app.get('/about', (req,res) => res.send("Our company was founded in 2015"));
 app.use('/users', users);
-app.use('/inquiry', inquiry);
-app.get('/inquiry', inquiry);
-app.get('/dashboard', passport.authenticate('jwt', {session:false}),(req,res) => {
-  return res.json({
-    data: [
-      {
-        "name": "Top Secret Agent 1",
-        "profession": "CIA Operative",
-        "location": "Lebanon"
-      },
-      {
-        "name": "Tom Cruise",
-        "profession": "Black Ops",
-        "location": "Lisbon"
-      },
-      {
-        "name": "James Bond 007",
-        "profession": "MI6 Agent",
-        "location": "London"
-      }
-    ]
-  })
-})
-
-
+app.use('/inquiries', inquiries);
+app.use('/products', products);
+app.get('/inquiries', inquiries, passport.authenticate('jwt', {session:false}));
+app.get('/products', products, passport.authenticate('jwt', {session:false}));
 
 const port = process.env.PORT || 5000;
 
